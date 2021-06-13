@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Danillo Webmail Service</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+        integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
+</head>
+
+<body style="background-color: whitesmoke">
+    <form class="card col-md-10 offset-md-1">
+        <div class="form-group">
+            <div class="form-row">
+                <label class=" col-form-label" for="username">Username</label>
+                <input class="form-control col-2" id="username" />
+                <input class="btn btn-primary" onclick="signInOrSignUp();" type="button" value="Access" />
+                <input class="btn btn-danger" onclick="logout()" type="button" value="Logout" />
+                <br />
+            </div>
+        </div>
+    </form>
+    <div class="form-group col-10 offset-md-1">
+        <br />
+        <br />
+        <div class="d-flex flex-row-reverse bd-highlight"><input class="btn btn-primary" onclick="openSendModal()"
+                type="button" value="Write" /></div>
+        <table id="table" data-toggle="table" style="background-color: white">
+            <thead>
+                <tr>
+                    <th data-visible="false" data-field="id">Id</th>
+                    <th data-field="from">From</th>
+                    <th data-field="subject">Subject</th>
+                    <th data-field="actions">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="modal fade" id="emailOpenModal" tabindex="-1" role="dialog" aria-labelledby="emailOpenModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="emailOpenModalLabel"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div id="emailOpenModalBody" class="modal-body">
+                    <form class="card col-md-10 offset-md-1">
+                        <div class="form-group">
+                            <input class="form-control" id="idOpenModal" hidden />
+                            <div class="form-row">
+                                <label class=" col-form-label" for="fromOpenModal">From</label>
+                                <input class="form-control col-12" readonly id="fromOpenModal" /><br />
+                            </div>
+                            <div class="form-row">
+                                <label class=" col-form-label" for="toOpenModal">To</label>
+                                <input class="form-control col-12" readonly id="toOpenModal" /><br />
+                            </div>
+                            <div class="form-row">
+                                <label class=" col-form-label" for="subjectOpenModal">Subject</label>
+                                <input class="form-control col-12" readonly id="subjectOpenModal" /><br />
+                            </div>
+                            <div class="form-row">
+                                <label class=" col-form-label" for="bodyOpenModal">Body</label>
+                                <textarea class="form-control col-12" readonly id="bodyOpenModal"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="emailForwardModal" tabindex="-1" role="dialog" aria-labelledby="emailForwardModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="emailForwardModalLabel"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div id="emailForwardModalBody" class="modal-body">
+                    <form class="card col-md-10 offset-md-1">
+                        <div class="form-group">
+                            <input class="form-control" id="idForwardModal" hidden />
+                            <div class="form-row">
+                                <label class=" col-form-label" for="fromForwardModal">From</label>
+                                <input class="form-control col-12" readonly id="fromForwardModal" /><br />
+                            </div>
+                            <div class="form-row">
+                                <label class=" col-form-label" for="toForwardModal">To</label>
+                                <input class="form-control col-12" id="toForwardModal" /><br />
+                            </div>
+                            <div class="form-row">
+                                <label class=" col-form-label" for="subjectForwardModal">Subject</label>
+                                <input class="form-control col-12" readonly id="subjectForwardModal" /><br />
+                            </div>
+                            <div class="form-row">
+                                <label class=" col-form-label" for="bodyForwardModal">Body</label>
+                                <textarea class="form-control col-12" readonly id="bodyForwardModal"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="forward();">Forward</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="emailSendModal" tabindex="-1" role="dialog" aria-labelledby="emailSendModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="emailSendModalLabel"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div id="emailSendModalBody" class="modal-body">
+                    <form class="card col-md-10 offset-md-1">
+                        <div class="form-group">
+                            <input class="form-control" id="idSendModal" hidden />
+                            <div class="form-row">
+                                <label class=" col-form-label" for="fromSendModal">From</label>
+                                <input class="form-control col-12" readonly id="fromSendModal" /><br />
+                            </div>
+                            <div class="form-row">
+                                <label class=" col-form-label" for="toSendModal">To</label>
+                                <input class="form-control col-12" id="toSendModal" /><br />
+                            </div>
+                            <div class="form-row">
+                                <label class=" col-form-label" for="subjectSendModal">Subject</label>
+                                <input class="form-control col-12" id="subjectSendModal" /><br />
+                            </div>
+                            <div class="form-row">
+                                <label class=" col-form-label" for="bodySendModal">Body</label>
+                                <textarea class="form-control col-12" id="bodySendModal"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="send();">Send</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="emailReplyModal" tabindex="-1" role="dialog" aria-labelledby="emailReplyModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="emailReplyModalLabel"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div id="emailReplyModalBody" class="modal-body">
+                    <form class="card col-md-10 offset-md-1">
+                        <div class="form-group">
+                            <input class="form-control" id="idReplyModal" hidden />
+                            <div class="form-row">
+                                <label class=" col-form-label" for="fromReplyModal">From</label>
+                                <input class="form-control col-12" readonly id="fromReplyModal" /><br />
+                            </div>
+                            <div class="form-row">
+                                <label class=" col-form-label" for="toReplyModal">To</label>
+                                <input class="form-control col-12" readonly id="toReplyModal" /><br />
+                            </div>
+                            <div class="form-row">
+                                <label class=" col-form-label" for="subjectReplyModal">Subject</label>
+                                <input class="form-control col-12" readonly id="subjectReplyModal" /><br />
+                            </div>
+                            <div class="form-row">
+                                <label class=" col-form-label" for="bodyReplyModal">Body</label>
+                                <textarea class="form-control col-12" id="bodyReplyModal"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="reply();">Reply</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="./utils.js"></script>
+
+</html>
