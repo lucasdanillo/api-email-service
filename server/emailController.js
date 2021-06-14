@@ -117,7 +117,7 @@ const replyEmail = (id, body) => {
             reject({ status: 400, message: `You must provide an email to reply !` });
         }
         if (!body) {
-            reject({ status: 400, message: `You must provide a reply !` });
+            reject({ status: 400, message: `You must provide an e-mail body !` });
         }
         const email = emails.find((email) => email.id === id);
         if (email) {

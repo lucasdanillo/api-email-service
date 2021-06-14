@@ -19,7 +19,7 @@ function getPostData(req) {
 }
 
 const server = http.createServer(async (request, response) => {
-    if (request.url === '/api/emails' && request.method === 'GET') {
+    if (request.url === '/api/emails' && request.method === 'GET') { 
         try {
             const emails = await Email.findAll();
             response.writeHead(200, { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
@@ -30,7 +30,7 @@ const server = http.createServer(async (request, response) => {
             response.end(JSON.stringify(error.message));
         }
     }
-    else if (request.url.match(/\/api\/emails\/([a-z A-Z]+)/) && request.method === 'GET') {
+    else if (request.url.match(/\/api\/emails\/([a-z A-Z]+)/) && request.method === 'GET') { 
         const to = request.url.split('/')[3];
         try {
             const emails = await Email.findAllByTo(to);
@@ -41,7 +41,7 @@ const server = http.createServer(async (request, response) => {
             response.end(JSON.stringify(error.message));
         }
     }
-    else if (request.url === '/api/emails' && request.method === 'POST') {
+    else if (request.url === '/api/emails' && request.method === 'POST') { 
         const email_data = await getPostData(request);
         const { from, to, subject, body } = JSON.parse(email_data);
         try {
@@ -55,7 +55,7 @@ const server = http.createServer(async (request, response) => {
             response.end(JSON.stringify(error.message));
         }
     }
-    else if (request.url.match(/\/api\/emails\/([0-9]+)/) && request.method === 'DELETE') {
+    else if (request.url.match(/\/api\/emails\/([0-9]+)/) && request.method === 'DELETE') { 
         const id = request.url.split('/')[3];
         try {
             await Email.deleteById(id);
@@ -66,7 +66,7 @@ const server = http.createServer(async (request, response) => {
             response.end(JSON.stringify(error.message));
         }
     }
-    else if (request.url.match(/\/api\/emails\/([0-9]+)/) && request.method === 'GET') {
+    else if (request.url.match(/\/api\/emails\/([0-9]+)/) && request.method === 'GET') { 
         const id = request.url.split('/')[3];
         try {
             const email = await Email.findById(id);
@@ -77,7 +77,7 @@ const server = http.createServer(async (request, response) => {
             response.end(JSON.stringify(error.message));
         }
     }
-    else if (request.url === '/api/emails/fwd' && request.method === 'PUT') {
+    else if (request.url === '/api/emails/fwd' && request.method === 'POST') { 
         const fwd_data = await getPostData(request);
         const { id, to } = JSON.parse(fwd_data);
         try {
@@ -90,7 +90,7 @@ const server = http.createServer(async (request, response) => {
             response.end(JSON.stringify(error.message));
         }
     }
-    else if (request.url === '/api/emails/reply' && request.method === 'PUT') {
+    else if (request.url === '/api/emails/reply' && request.method === 'POST') { 
         const re_data = await getPostData(request);
         const { id, body } = JSON.parse(re_data);
         try {
@@ -103,18 +103,7 @@ const server = http.createServer(async (request, response) => {
             response.end(JSON.stringify(error.message));
         }
     }
-    else if (request.url.match(/\/api\/users\/([a-z A-Z]+)/) && request.method === 'GET') {
-        const user = request.url.split('/')[3];
-        try {
-            const userName = await User.findUserByName(user);
-            response.writeHead(200, { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
-            response.end(JSON.stringify(userName));
-        } catch (error) {
-            response.writeHead(error.status, { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
-            response.end(JSON.stringify(error.message));
-        }
-    }
-    else if (request.url === '/api/users' && request.method === 'POST') {
+    else if (request.url === '/api/users' && request.method === 'POST') { 
         const userName = await getPostData(request);
         const { user } = JSON.parse(userName);
         try {

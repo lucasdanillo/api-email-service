@@ -179,7 +179,7 @@ function send() {
         xhr.send(data);
     }
     else {
-        alert("Unable to send email!");
+        alert("You must provide all e-mail information!");
     }
 }
 
@@ -201,11 +201,11 @@ function forward() {
 
     if (document.getElementById("idForwardModal").value && document.getElementById("toForwardModal").value) {
         const data = JSON.stringify({ id: document.getElementById("idForwardModal").value, to: document.getElementById("toForwardModal").value });
-        xhr.open("PUT", "http://localhost:5000/api/emails/fwd");
+        xhr.open("POST", "http://localhost:5000/api/emails/fwd");
         xhr.send(data);
     }
     else {
-        alert("Unable to forward email!");
+        alert("You must provide all e-mail information!");
     }
 
 }
@@ -228,7 +228,7 @@ function reply() {
 
     if (document.getElementById("idReplyModal").value && document.getElementById("toReplyModal").value) {
         const data = JSON.stringify({ id: document.getElementById("idReplyModal").value, body: document.getElementById("bodyReplyModal").value });
-        xhr.open("PUT", "http://localhost:5000/api/emails/reply");
+        xhr.open("POST", "http://localhost:5000/api/emails/reply");
         xhr.send(data);
     }
     else {
