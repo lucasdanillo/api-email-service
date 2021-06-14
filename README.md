@@ -1,10 +1,10 @@
-1 - Instruções de execução (desenvolvido com NodeJS)
-	- No terminal, acesse o diretório "server" e execute o comando "node index.js";
-	- Caso tudo ocorra bem, haverá um indicativo no terminal de que o servidor está escutando na porta 5000;
-	- Abra o arquivo index.html, presente no diretório "client", através de um navegador para ter acesso à aplicação que realiza as requisições.
-	- Para logar/criar usuário na aplicação, digite um nome de usuário válido (que não possua espaços em branco) no campo "Username". Caso o usuário ainda não exista, será criado um novo usuário. Caso exista, seus e-mails serão recuperados.
+# 1 - Instruções de execução (desenvolvido com NodeJS)
+- No terminal, acesse o diretório "server" e execute o comando "node index.js";
+- Caso tudo ocorra bem, haverá um indicativo no terminal de que o servidor está escutando na porta 5000;
+- Abra o arquivo index.html, presente no diretório "client", através de um navegador para ter acesso à aplicação que realiza as requisições.
+- Para logar/criar usuário na aplicação, digite um nome de usuário válido (que não possua espaços em branco) no campo "Username". Caso o usuário ainda não exista, será criado um novo usuário. Caso exista, seus e-mails serão recuperados.
 	
-2 - Instruções de utilização da API
+# 2 - Instruções de utilização da API
 
  - URL: /api/emails	 Method: GET
  Retorna todos os e-mails persistidos no arquivo data.txt presente no diretório "server". Requisição não é utilizada no client e foi utilizada apenas para facilitar o desenvolvimento da aplicação.
