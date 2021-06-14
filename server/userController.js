@@ -27,6 +27,5 @@ const createOrLoginUser = (userName) => {
 };
 
 module.exports = {
-    createOrLoginUser,
-    findUserByName
+    createOrLoginUser
 };
